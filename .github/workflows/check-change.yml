@@ -1,0 +1,43 @@
+name: Check change
+on:
+  pull_request:
+
+jobs:
+  check-change:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const beachballVersion = require('./package.json').devDependencies.beachball;
+            if (typeof beachballVersion !== 'string') {
+              core.setFailed("Please check 'package.json', it should include 'beachball' in 'devDependencies'")
+            } else {
+              console.log(`Using beachball@${beachballVersion}...`)
+              await exec.exec('yarn', ['global', 'add', `beachball@${beachballVersion}`]);
+            }
+
+      - name: Check change files
+        run: |
+          yarn checkchange
+      #   if: ${{ github.actor != 'renovate[bot]' }}
+
+      # This is how I was working around the inability to have renovate add the change files itself
+      # - name: Add change files for renovate bot
+      #   run: |
+      #     git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
+      #     git config user.name 'Renovate Bot'
+      #     git config user.email 'bot@renovateapp.com'
+      #     yarn change --type patch --message "Updating dependencies"
+      #     git push origin HEAD:$GITHUB_HEAD_REF
+      #   if: ${{ github.actor == 'renovate[bot]' }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

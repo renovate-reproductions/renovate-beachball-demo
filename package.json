@@ -1,0 +1,20 @@
+{
+  "name": "renovate-beachball-demo",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ecraig12345/renovate-beachball-demo"
+  },
+  "scripts": {
+    "change": "beachball change",
+    "checkchange": "beachball check"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "beachball": "2.22.2"
+  }
+}
