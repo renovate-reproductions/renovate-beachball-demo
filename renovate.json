@@ -1,5 +1,10 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base"
-  ]
+  ],
+  "postUpgradeTasks": {
+    "commands": ["beachball change --no-commit --type patch --message \"Updating dependencies\""],
+    "fileFilters": ["change/*.json"]
+  }
 }

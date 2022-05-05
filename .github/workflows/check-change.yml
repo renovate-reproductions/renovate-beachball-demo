@@ -14,20 +14,9 @@ jobs:
         with:
           node-version: '14'
 
-      - uses: actions/github-script@v6
-        with:
-          script: |
-            const beachballVersion = require('./package.json').devDependencies.beachball;
-            if (typeof beachballVersion !== 'string') {
-              core.setFailed("Please check 'package.json', it should include 'beachball' in 'devDependencies'")
-            } else {
-              console.log(`Using beachball@${beachballVersion}...`)
-              await exec.exec('yarn', ['global', 'add', `beachball@${beachballVersion}`]);
-            }
+      - run: yarn
 
-      - name: Check change files
-        run: |
-          yarn checkchange
+      - run: yarn checkchange
       #   if: ${{ github.actor != 'renovate[bot]' }}
 
       # This is how I was working around the inability to have renovate add the change files itself
