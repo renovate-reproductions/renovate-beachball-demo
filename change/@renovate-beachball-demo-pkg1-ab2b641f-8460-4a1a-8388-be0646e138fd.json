@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Update dependencies",
+  "packageName": "@renovate-beachball-demo/pkg1",
+  "email": "bot@renovateapp.com",
+  "dependentChangeType": "patch"
+}
