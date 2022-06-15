@@ -3,8 +3,15 @@
   "extends": [
     "config:base"
   ],
+  "automerge": false,
+  "gitAuthor": "Renovate Bot <renovate@whitesourcesoftware.com>",
   "postUpgradeTasks": {
-    "commands": ["beachball change --no-commit --type patch --message \"Updating dependencies\""],
-    "fileFilters": ["change/*.json"]
+    "commands": [
+      "git add --all",
+      "npx beachball change --no-commit --type patch --message '{{{commitMessage}}}'",
+      "git reset"
+    ],
+    "fileFilters": ["**/*"],
+    "executionMode": "branch"
   }
 }
