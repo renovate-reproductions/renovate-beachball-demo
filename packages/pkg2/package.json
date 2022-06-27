@@ -1,6 +1,6 @@
 {
   "name": "@renovate-beachball-demo/pkg2",
   "dependencies": {
-    "react": "17.0.2"
+    "react": "18.2.0"
   }
 }
